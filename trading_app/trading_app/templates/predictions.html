@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predictions</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Predictions</h2>
+        <table class="table table-bordered" id="predictionsTable">
+            <thead>
+                <tr>
+                    <th>Datetime</th>
+                    <th>Predicted Signal</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('/predictions')
+                .then(response => response.json())
+                .then(data => {
+                    if(data.success) {
+                        const predictionsTableBody = document.querySelector('#predictionsTable tbody');
+                        data.data.forEach(row => {
+                            const tr = document.createElement('tr');
+                            const tdDatetime = document.createElement('td');
+                            const tdSignal = document.createElement('td');
+                            tdDatetime.textContent = row.datetime;
+                            tdSignal.textContent = row.predicted_signal;
+                            tr.appendChild(tdDatetime);
+                            tr.appendChild(tdSignal);
+                            predictionsTableBody.appendChild(tr);
+                        });
+                    } else {
+                        console.error(data.message);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

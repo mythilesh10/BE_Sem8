@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Analysis App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.css">
+</head>
+
+<body>
+    <nav>
+
+        <img src="../static/assets/logo.png" id="navbar-logo" alt="Logo">
+        <!-- <div id="navbar-text">MESWCOE</div> -->
+
+        <ul>
+            <li><a href="#download">Download Data</a></li>
+            <li><a href="#visualize">Visualize Data</a></li>
+            <li><a href="#train">Train Model</a></li>
+            <li><a href="http://127.0.0.1:5000/predictions">Predictions</a></li>
+            <li><a href="http://127.0.0.1:5000/news">News and Sentiment Analysis</a></li>
+        </ul>
+    </nav>
+
+    <section id="download">
+        <h2>Download Data</h2>
+        <form id="download-form">
+            <label for="ticker">Ticker Symbol:</label>
+            <select id="ticker" name="ticker">
+                <option value="TCS.NS">TCS.NS</option>
+                <option value="ADANIENT.NS">ADANIENT.NS</option>
+                <option value="SBIN.NS">SBIN.NS</option>
+            </select>
+            <button type="button" onclick="downloadData()">Go</button>
+        </form>
+    </section>
+
+    <section id="train">
+        <h2>Train and Predict</h2>
+        <div id="predictions-display"></div>
+        <button type="button" onclick="trainModel()">Train and Predict</button>
+    </section>
+
+    <section id="visualize">
+        <h2>Visualize Data</h2>
+        <div style="text-align: center;">
+            <label for="stock-dropdown">Select a stock:</label>
+            <select id="stock-dropdown">
+                <option value="adani_enterprise.csv">Adani Enterprise</option>
+                <option value="sbi.csv">SBI</option>
+                <option value="tcs.csv">TCS</option>
+                <option value="tcsnew_signals">TCS NEW</option>
+            </select>
+        </div>
+        <div id="chart"></div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Stock Analysis App. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+
+</html>
